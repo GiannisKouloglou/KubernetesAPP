@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!--<script src="js/AJAX.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <style>
+        body {
+            background-image: url('https://dynaimage.cdn.cnn.com/cnn/c_fill,g_auto,w_1200,h_675,ar_16:9/https%3A%2F%2Fcdn.cnn.com%2Fcnnnext%2Fdam%2Fassets%2F200320110619-coronavirus-animation.jpg');
+            /*background-repeat: no-repeat;*/
+            /*background-size: cover;*/
+            background-color: #f5e0ea;
+        }
+        .card {
+            /* Add shadows to create the "card" effect */
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+            margin-top:30px;
+            margin-right:30px;
+            margin-left:25px;
+        }
+        .tab1cards {
+            display: flex;
+            flex-direction: row;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Cloud DPMS</title>
+
+</head>
+
+<body>
+<h1 style="text-align:center" id="title">X-ray pictures of Covid-19 victims</h1>
+<div style="left: 50%;">
+    <!-- Button trigger modal -->
+    <br><br>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Πληροφορίες για την Εργασία
+    </button>
+</div>
+
+<script>
+    // Asygxrono function gia ta images
+    function getImages(id,type="default"){
+        var urls = '';
+        if(type=="cats"){
+            urls = "https://api.github.com/repos/maxogden/cats/contents/cat_photos";
+            document.getElementById("title").innerHTML = "Cat Party!!!";
+            document.getElementById("row").innerHTML = "";
+            var r = document.createElement('div');
+            r.id=id;
+            r.className=id;
+            document.body.style.backgroundImage = "url('https://i.ibb.co/dkfBM99/1593016219193.jpg')";
+        }else if(type=="default"){
+            urls = "https://api.github.com/repos/ieee8023/covid-chestxray-dataset/contents/images/";
+        }
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": urls,
+            "method": "GET",
+            "headers": {
+                "content-type": "application/json"
+            }
+        };
+        $.ajax(settings).done(function(response) {
+            console.log(response[0]);
+            for(var i=0;i<response.length;i++){
+                var card = document.createElement('div');
+                card.className = 'card';
+
+                var img = document.createElement('img');
+                img.src = response[i]['download_url'];
+                img.width = "300";
+                img.style.margin = "15px";
+                img.height = "300";
+//              document.getElementById(id).appendChild(img);
+
+                var title = document.createElement('h4');
+                title.innerText ='Name: '+ response[i]['name'];
+
+                var row_div = document.getElementById(id);
+                card.appendChild(img);
+                card.appendChild(title);
+                row_div.appendChild(card);
+
+            }
+//            var div =  document.getElementById(id);
+//            div.appendChild(row_div);
+        }).fail(function(response){
+            console.log(response);
+            alert("Maybe CORS fail");
+        });
+    }
+</script>
+<div class="tab1cards" id="images">
+    <div class="row" id="row">
+    </div>
+</div>
+<script>
+    getImages("row");
+</script>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"> Περίληψη Εργασίας </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Ανάπτυξη εφαρμογής σε Kubernetes cluster με σκοπό την προβολή ιατρικών εικόνων που αφορούν ακτινογραφίες
+                και αξονικές τομογραφίες ασθενών που είναι θετικοί
+                ή ύποπτοι για COVID-19 ή άλλες ιογενείς και βακτηριακές πνευμονίες (MERS, SARS και ARDS.)</p>
+                <i>** Υπάρχει και η επιλογή μιας χαρούμενης νότας για την εργασία**</i>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="getImages('row','cats')">Happy tone</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
