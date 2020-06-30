@@ -20,7 +20,7 @@ sudo docker run -d -p 80:80 astzko:v1
 kubectl apply -f depl.yaml
 kubectl apply -f serv.yaml
 
-Architecture Kubernetes Single Node Cluster.jpg
+![Architecture Kubernetes Single Node Cluster](https://user-images.githubusercontent.com/57442926/86151722-ca372c00-bb07-11ea-9fab-5ce8b8b6eca0.jpg)
 
 Creaded by:
 Asimakopoulos Alexandros
