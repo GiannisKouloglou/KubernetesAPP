@@ -22,5 +22,5 @@ kubectl apply -f serv.yaml
 
 Creaded by:
 Asimakopoulos Alexandros
-Ioannis Omiros Kouloglou
+Kouloglou Ioannis Omiros 
 Tzitzios Ioannis
