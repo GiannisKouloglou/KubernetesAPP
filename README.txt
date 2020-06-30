@@ -19,3 +19,8 @@ sudo docker run -d -p 80:80 astzko:v1
 ### USE THE YAML FILES TO CREATE DEPLOYMENT AND SERVICE
 kubectl apply -f depl.yaml
 kubectl apply -f serv.yaml
+
+Creaded by:
+Asimakopoulos Alexandros
+Ioannis Omiros Kouloglou
+Tzitzios Ioannis
