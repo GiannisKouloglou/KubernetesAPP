@@ -7,6 +7,8 @@ pf9ctl cluster bootstrap MyFirstCluster
 ### INSTALL LIBRARIES
 sudo apt-get install curl
 sudo apt-get install git 
+sudo apt-get update
+sudo apt-get upgrade
 
 **Get all the files in one folder and use "open in terminal"
 ### CREATE CONTAINER USING DOCKER
